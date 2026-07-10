@@ -1,0 +1,99 @@
+# Default node manifest for the ros2_control behavior tree nodes.
+#
+# All entries resolve the targeted controller manager from the 'controller_manager' input port
+# (default: "controller_manager"). The value follows the standard ROS 2 name expansion rules,
+# so it may be relative (resolved against the executor node's namespace), private (~/...) or
+# fully qualified (/...).
+#
+# Downstream packages are encouraged to derive their own entries from this manifest using the
+# 'parent' field instead of redefining the registration options, e.g.:
+#
+#   MySwitchController:
+#     parent: ${PROJECT_NAME}::behavior_tree_nodes.SwitchController
+#     topic: /my_robot/controller_manager/switch_controller
+
+SwitchController:
+  class_name: ${PROJECT_NAME}::SwitchController
+  description: Activates and/or deactivates one or more ros2_control controllers in one controller manager update cycle
+  topic: (input:controller_manager)/switch_controller
+  request_timeout: 5.0
+
+ActivateController:
+  class_name: ${PROJECT_NAME}::SwitchController
+  description: Activates a single ros2_control controller
+  topic: (input:controller_manager)/switch_controller
+  port_alias:
+    activate_controllers: controller (Name of the controller to activate.)
+  hidden_ports:
+    - deactivate_controllers
+    - activate_asap
+    - timeout
+  request_timeout: 5.0
+
+DeactivateController:
+  class_name: ${PROJECT_NAME}::SwitchController
+  description: Deactivates a single ros2_control controller
+  topic: (input:controller_manager)/switch_controller
+  port_alias:
+    deactivate_controllers: controller (Name of the controller to deactivate.)
+  hidden_ports:
+    - activate_controllers
+    - activate_asap
+    - timeout
+  request_timeout: 5.0
+
+LoadController:
+  class_name: ${PROJECT_NAME}::LoadController
+  description: Loads a controller into the controller manager
+  topic: (input:controller_manager)/load_controller
+  request_timeout: 5.0
+
+ConfigureController:
+  class_name: ${PROJECT_NAME}::ConfigureController
+  description: Configures a loaded controller (transition to the 'inactive' state)
+  topic: (input:controller_manager)/configure_controller
+  request_timeout: 5.0
+
+CleanupController:
+  class_name: ${PROJECT_NAME}::CleanupController
+  description: Cleans up an inactive controller (transition back to the 'unconfigured' state)
+  topic: (input:controller_manager)/cleanup_controller
+  request_timeout: 5.0
+
+UnloadController:
+  class_name: ${PROJECT_NAME}::UnloadController
+  description: Unloads a controller from the controller manager
+  topic: (input:controller_manager)/unload_controller
+  request_timeout: 5.0
+
+ReloadControllerLibraries:
+  class_name: ${PROJECT_NAME}::ReloadControllerLibraries
+  description: Reloads all available controller libraries of the controller manager
+  topic: (input:controller_manager)/reload_controller_libraries
+  request_timeout: 10.0
+
+ListControllers:
+  class_name: ${PROJECT_NAME}::ListControllers
+  description: Queries the names and states of all controllers loaded by the controller manager
+  topic: (input:controller_manager)/list_controllers
+
+ListControllerTypes:
+  class_name: ${PROJECT_NAME}::ListControllerTypes
+  description: Queries all controller types the controller manager is able to load
+  topic: (input:controller_manager)/list_controller_types
+
+ListHardwareComponents:
+  class_name: ${PROJECT_NAME}::ListHardwareComponents
+  description: Queries the names and lifecycle states of all hardware components loaded by the controller manager
+  topic: (input:controller_manager)/list_hardware_components
+
+ListHardwareInterfaces:
+  class_name: ${PROJECT_NAME}::ListHardwareInterfaces
+  description: Queries the names of all command and state interfaces registered with the controller manager
+  topic: (input:controller_manager)/list_hardware_interfaces
+
+SetHardwareComponentState:
+  class_name: ${PROJECT_NAME}::SetHardwareComponentState
+  description: Sets the lifecycle state of a hardware component loaded by the controller manager
+  topic: (input:controller_manager)/set_hardware_component_state
+  request_timeout: 5.0

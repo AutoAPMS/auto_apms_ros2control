@@ -1,0 +1,6 @@
+repositories:
+  # Include the latest version of auto-apms to ensure we have the most up-to-date behavior tree nodes for documentation generation
+  dep/auto-apms:
+    type: git
+    url: https://github.com/AutoAPMS/auto-apms.git
+    version: master

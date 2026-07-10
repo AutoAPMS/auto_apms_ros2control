@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>auto_apms_ros2control</name>
+  <version>0.0.0</version>
+  <description>Plugins for behavior-based applications incorporating ros2_control</description>
+  <maintainer email="mue.robin@icloud.com">Robin Müller</maintainer>
+  <license>Apache License 2.0</license>
+  <url>https://autoapms.github.io/auto-apms-guide/</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>auto_apms_behavior_tree_core</depend>
+  <depend>controller_manager_msgs</depend>
+  <depend>lifecycle_msgs</depend>
+
+  <test_depend>ament_cmake_copyright</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
