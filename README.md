@@ -2,29 +2,13 @@
   <img width="50%" src="https://autoapms.github.io/auto-apms-guide/logo/autoapms_logo.svg">
 </p>
 
-# Using ROS 2 and AutoAPMS with ros2_control
+# auto_apms_ros2control
 
 This repository holds ROS 2 packages enabling behavior-based ROS 2 applications for the [ros2_control](https://control.ros.org) framework. This implementation adopts the [AutoAPMS](https://github.com/AutoAPMS/auto-apms) framework and provides behavior tree nodes covering all services offered by the controller manager.
 
-## Packages
+## Behavior tree node reference
 
-- **`auto_apms_ros2control`** — Behavior tree node plugins wrapping the `controller_manager_msgs` services:
-
-  | Node | Service |
-  | --- | --- |
-  | `SwitchController` | `~/switch_controller` |
-  | `LoadController` | `~/load_controller` |
-  | `ConfigureController` | `~/configure_controller` |
-  | `CleanupController` | `~/cleanup_controller` |
-  | `UnloadController` | `~/unload_controller` |
-  | `ReloadControllerLibraries` | `~/reload_controller_libraries` |
-  | `ListControllers` | `~/list_controllers` |
-  | `ListControllerTypes` | `~/list_controller_types` |
-  | `ListHardwareComponents` | `~/list_hardware_components` |
-  | `ListHardwareInterfaces` | `~/list_hardware_interfaces` |
-  | `SetHardwareComponentState` | `~/set_hardware_component_state` |
-
-  The default node manifest additionally provides the convenience registrations `ActivateController` and `DeactivateController` for switching a single controller by name.
+The reference documentation for all behavior tree node plugins from this repo can be found under [Behavior Tree Nodes > auto_apms_ros2control](https://autoapms.github.io/auto-apms-guide/reference/behavior-tree-nodes#overview-auto-apms-ros2control).
 
 ## Usage in downstream packages
 
@@ -49,7 +33,3 @@ All nodes resolve the targeted controller manager from the `controller_manager` 
      port_default:
        controller: my_controller
    ```
-
-## License
-
-Licensed under the Apache License, Version 2.0.
