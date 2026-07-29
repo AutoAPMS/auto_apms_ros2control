@@ -22,8 +22,6 @@ ActivateController:
   class_name: ${PROJECT_NAME}::SwitchController
   description: Activates a single ros2_control controller
   topic: (input:controller_manager)/switch_controller
-  port_alias:
-    activate_controllers: controller (Name of the controller to activate.)
   hidden_ports:
     - deactivate_controllers
     - activate_asap
@@ -34,8 +32,6 @@ DeactivateController:
   class_name: ${PROJECT_NAME}::SwitchController
   description: Deactivates a single ros2_control controller
   topic: (input:controller_manager)/switch_controller
-  port_alias:
-    deactivate_controllers: controller (Name of the controller to deactivate.)
   hidden_ports:
     - activate_controllers
     - activate_asap
@@ -97,3 +93,13 @@ SetHardwareComponentState:
   description: Sets the lifecycle state of a hardware component loaded by the controller manager
   topic: (input:controller_manager)/set_hardware_component_state
   request_timeout: 5.0
+
+CheckControllerState:
+  class_name: ${PROJECT_NAME}::CheckControllerState
+  description: Checks the current state of a single controller loaded by the controller manager
+  topic: (input:controller_manager)/list_controllers
+
+CheckHardwareState:
+  class_name: ${PROJECT_NAME}::CheckHardwareState
+  description: Checks the current lifecycle state of a single hardware component loaded by the controller manager
+  topic: (input:controller_manager)/list_hardware_components

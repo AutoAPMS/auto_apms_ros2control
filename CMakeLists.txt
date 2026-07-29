@@ -37,6 +37,8 @@ add_library(${PROJECT_NAME}_behavior_tree_nodes SHARED
     "src/node/list_hardware_components.cpp"
     "src/node/list_hardware_interfaces.cpp"
     "src/node/set_hardware_component_state.cpp"
+    "src/node/check_controller_state.cpp"
+    "src/node/check_hardware_state.cpp"
 )
 target_link_libraries(${PROJECT_NAME}_behavior_tree_nodes PUBLIC
     auto_apms_behavior_tree_core::auto_apms_behavior_tree_core
@@ -55,6 +57,8 @@ auto_apms_behavior_tree_register_nodes(${PROJECT_NAME}_behavior_tree_nodes
     "${PROJECT_NAME}::ListHardwareComponents"
     "${PROJECT_NAME}::ListHardwareInterfaces"
     "${PROJECT_NAME}::SetHardwareComponentState"
+    "${PROJECT_NAME}::CheckControllerState"
+    "${PROJECT_NAME}::CheckHardwareState"
     NODE_MANIFEST
     "config/node_manifest.yaml.in"
     NODE_MANIFEST_ALIAS
