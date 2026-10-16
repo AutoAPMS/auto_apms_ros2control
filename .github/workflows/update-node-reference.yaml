@@ -9,8 +9,9 @@ jobs:
   generate_node_reference:
     uses: AutoAPMS/auto-apms/.github/workflows/build-and-test-reusable.yaml@master
     with:
-      ros_distribution: jazzy
-      docker_image: ubuntu:noble
+      ros_distribution: rolling
+      docker_image: ubuntu:resolute
+      use_ros2_testing: true # Rolling packages for resolute are only available in the testing repository for now
       package_name: auto_apms_ros2control
       vcs_repo_file_url: ${GITHUB_WORKSPACE}/update_node_reference_deps.repos
       skip_tests: true
