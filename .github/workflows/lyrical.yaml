@@ -1,0 +1,17 @@
+name: Lyrical
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  build_and_test:
+    uses: AutoAPMS/auto-apms/.github/workflows/build-and-test-reusable.yaml@master
+    with:
+      ros_distribution: lyrical
+      docker_image: ubuntu:resolute
+      package_name: auto_apms_ros2control

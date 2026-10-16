@@ -9,8 +9,17 @@ on:
       - "*"
 
 jobs:
-  build_and_test:
-    uses: ./.github/workflows/build-and-test-reusable.yaml
+  build_and_test_main:
+    uses: AutoAPMS/auto-apms/.github/workflows/build-and-test-reusable.yaml@master
     with:
       ros_distribution: rolling
       docker_image: ubuntu:resolute
+      package_name: auto_apms_ros2control
+
+  build_and_test_testing:
+    uses: AutoAPMS/auto-apms/.github/workflows/build-and-test-reusable.yaml@master
+    with:
+      ros_distribution: rolling
+      docker_image: ubuntu:resolute
+      use_ros2_testing: true
+      package_name: auto_apms_ros2control
