@@ -13,6 +13,7 @@ find_package(ament_cmake REQUIRED)
 find_package(auto_apms_behavior_tree_core REQUIRED)
 find_package(controller_manager_msgs REQUIRED)
 find_package(lifecycle_msgs REQUIRED)
+find_package(pal_statistics_msgs REQUIRED)
 
 #
 # ------------ Library --------------
@@ -39,11 +40,13 @@ add_library(${PROJECT_NAME}_behavior_tree_nodes SHARED
     "src/node/set_hardware_component_state.cpp"
     "src/node/check_controller_state.cpp"
     "src/node/check_hardware_state.cpp"
+    "src/node/check_interface_value.cpp"
 )
 target_link_libraries(${PROJECT_NAME}_behavior_tree_nodes PUBLIC
     auto_apms_behavior_tree_core::auto_apms_behavior_tree_core
     ${controller_manager_msgs_TARGETS}
     ${lifecycle_msgs_TARGETS}
+    ${pal_statistics_msgs_TARGETS}
 )
 auto_apms_behavior_tree_register_nodes(${PROJECT_NAME}_behavior_tree_nodes
     "${PROJECT_NAME}::SwitchController"
@@ -59,6 +62,7 @@ auto_apms_behavior_tree_register_nodes(${PROJECT_NAME}_behavior_tree_nodes
     "${PROJECT_NAME}::SetHardwareComponentState"
     "${PROJECT_NAME}::CheckControllerState"
     "${PROJECT_NAME}::CheckHardwareState"
+    "${PROJECT_NAME}::CheckInterfaceValue"
     NODE_MANIFEST
     "config/node_manifest.yaml.in"
     NODE_MANIFEST_ALIAS
