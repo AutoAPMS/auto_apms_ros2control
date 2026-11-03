@@ -103,3 +103,8 @@ CheckHardwareState:
   class_name: ${PROJECT_NAME}::CheckHardwareState
   description: Checks the current lifecycle state of a single hardware component loaded by the controller manager
   topic: (input:controller_manager)/list_hardware_components
+
+CheckInterfaceValue:
+  class_name: ${PROJECT_NAME}::CheckInterfaceValue
+  description: Checks whether the current value of an interface of the controller manager lies within a range
+  topic: (input:controller_manager)/introspection_data/full

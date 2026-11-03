@@ -13,6 +13,7 @@
   <depend>auto_apms_behavior_tree_core</depend>
   <depend>controller_manager_msgs</depend>
   <depend>lifecycle_msgs</depend>
+  <depend>pal_statistics_msgs</depend>
 
   <test_depend>ament_cmake_copyright</test_depend>
 
