@@ -31,5 +31,5 @@ All nodes resolve the targeted controller manager from the `controller_manager` 
      parent: auto_apms_ros2control::behavior_tree_nodes.ActivateController
      topic: /my_robot/controller_manager/switch_controller
      port_default:
-       controller: my_controller
+       activate_controllers: my_controller
    ```
