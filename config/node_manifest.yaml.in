@@ -5,6 +5,11 @@
 # so it may be relative (resolved against the executor node's namespace), private (~/...) or
 # fully qualified (/...).
 #
+# The service nodes set 'allow_unreachable': a controller manager that is not reachable (e.g. while it is busy
+# connecting its hardware or restarting) or does not answer within 'request_timeout' makes a node return FAILURE with
+# a throttled warning instead of interrupting the tree with an exception. A tree that should stop in that case can
+# check the node's result, or derive an entry with 'allow_unreachable: false'.
+#
 # Downstream packages are encouraged to derive their own entries from this manifest using the
 # 'parent' field instead of redefining the registration options, e.g.:
 #
@@ -16,12 +21,14 @@ SwitchController:
   class_name: ${PROJECT_NAME}::SwitchController
   description: Activates and/or deactivates one or more ros2_control controllers in one controller manager update cycle
   topic: (input:controller_manager)/switch_controller
+  allow_unreachable: true
   request_timeout: 5.0
 
 ActivateController:
   class_name: ${PROJECT_NAME}::SwitchController
   description: Activates a single ros2_control controller
   topic: (input:controller_manager)/switch_controller
+  allow_unreachable: true
   hidden_ports:
     - deactivate_controllers
     - activate_asap
@@ -32,6 +39,7 @@ DeactivateController:
   class_name: ${PROJECT_NAME}::SwitchController
   description: Deactivates a single ros2_control controller
   topic: (input:controller_manager)/switch_controller
+  allow_unreachable: true
   hidden_ports:
     - activate_controllers
     - activate_asap
@@ -42,67 +50,79 @@ LoadController:
   class_name: ${PROJECT_NAME}::LoadController
   description: Loads a controller into the controller manager
   topic: (input:controller_manager)/load_controller
+  allow_unreachable: true
   request_timeout: 5.0
 
 ConfigureController:
   class_name: ${PROJECT_NAME}::ConfigureController
   description: Configures a loaded controller (transition to the 'inactive' state)
   topic: (input:controller_manager)/configure_controller
+  allow_unreachable: true
   request_timeout: 5.0
 
 CleanupController:
   class_name: ${PROJECT_NAME}::CleanupController
   description: Cleans up an inactive controller (transition back to the 'unconfigured' state)
   topic: (input:controller_manager)/cleanup_controller
+  allow_unreachable: true
   request_timeout: 5.0
 
 UnloadController:
   class_name: ${PROJECT_NAME}::UnloadController
   description: Unloads a controller from the controller manager
   topic: (input:controller_manager)/unload_controller
+  allow_unreachable: true
   request_timeout: 5.0
 
 ReloadControllerLibraries:
   class_name: ${PROJECT_NAME}::ReloadControllerLibraries
   description: Reloads all available controller libraries of the controller manager
   topic: (input:controller_manager)/reload_controller_libraries
+  allow_unreachable: true
   request_timeout: 10.0
 
 ListControllers:
   class_name: ${PROJECT_NAME}::ListControllers
   description: Queries the names and states of all controllers loaded by the controller manager
   topic: (input:controller_manager)/list_controllers
+  allow_unreachable: true
 
 ListControllerTypes:
   class_name: ${PROJECT_NAME}::ListControllerTypes
   description: Queries all controller types the controller manager is able to load
   topic: (input:controller_manager)/list_controller_types
+  allow_unreachable: true
 
 ListHardwareComponents:
   class_name: ${PROJECT_NAME}::ListHardwareComponents
   description: Queries the names and lifecycle states of all hardware components loaded by the controller manager
   topic: (input:controller_manager)/list_hardware_components
+  allow_unreachable: true
 
 ListHardwareInterfaces:
   class_name: ${PROJECT_NAME}::ListHardwareInterfaces
   description: Queries the names of all command and state interfaces registered with the controller manager
   topic: (input:controller_manager)/list_hardware_interfaces
+  allow_unreachable: true
 
 SetHardwareComponentState:
   class_name: ${PROJECT_NAME}::SetHardwareComponentState
   description: Sets the lifecycle state of a hardware component loaded by the controller manager
   topic: (input:controller_manager)/set_hardware_component_state
+  allow_unreachable: true
   request_timeout: 5.0
 
 CheckControllerState:
   class_name: ${PROJECT_NAME}::CheckControllerState
   description: Checks the current state of a single controller loaded by the controller manager
   topic: (input:controller_manager)/list_controllers
+  allow_unreachable: true
 
 CheckHardwareState:
   class_name: ${PROJECT_NAME}::CheckHardwareState
   description: Checks the current lifecycle state of a single hardware component loaded by the controller manager
   topic: (input:controller_manager)/list_hardware_components
+  allow_unreachable: true
 
 CheckInterfaceValue:
   class_name: ${PROJECT_NAME}::CheckInterfaceValue
